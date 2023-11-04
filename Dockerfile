@@ -16,7 +16,7 @@ ENV CODE_SERVER_PORT=8080
 ENV HOME="/home/skipper"
 
 # Update and install required packages in one step to reduce layer size
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
     software-properties-common \
     libpng-dev \
     libjpeg-dev \
@@ -86,11 +86,11 @@ USER root
 
 # install FiraCode font
 Run add-apt-repository universe && \
-    apt-get update && apt-get install -y fonts-firacode
+    apt update && apt install -y fonts-firacode
     
 # Create a supervisord configuration file
 RUN cd / && \
-    apt-get update && apt-get install -y supervisor && \
+    apt update && apt install -y supervisor && \
     echo -e "[supervisord]\nnodaemon=true\n\n[program:apache]\ncommand=/usr/sbin/apache2ctl -D FOREGROUND\n\n[program:code-server]\ncommand=code-server --bind-addr 0.0.0.0:8080 /home/skipper" > /etc/supervisor/conf.d/supervisord.conf
 
 # Define localhost as ServerName in Apache
